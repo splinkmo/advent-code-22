@@ -1,17 +1,52 @@
 fun main() {
     fun part1(input: List<String>): Int {
-        return input.size
+        var maxCalorie = 0
+        var elfCalories = 0
+        for (value in input){
+            if (value != ""){
+                elfCalories += value.toInt()
+            }
+            else {
+                if (elfCalories > maxCalorie) {
+                    maxCalorie = elfCalories
+                }
+                elfCalories = 0
+            }
+        }
+        return maxCalorie
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val maxCalArray = arrayOf(0,0,0)
+        var elfCalories = 0
+        for (value in input){
+            if (value != ""){
+                elfCalories += value.toInt()
+            }
+            else {
+                if (elfCalories > maxCalArray[0]) {
+                    println("Replacing " + maxCalArray[0] + " with $elfCalories")
+                    maxCalArray[0] = elfCalories
+                    maxCalArray.sort()
+                }
+                elfCalories = 0
+            }
+        }
+        if (elfCalories > maxCalArray[0]) {
+            println("Replacing " + maxCalArray[0] + " with $elfCalories")
+            maxCalArray[0] = elfCalories
+            maxCalArray.sort()
+        }
+        return maxCalArray[0] + maxCalArray[1] + maxCalArray[2]
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
+    //println(part2(testInput))
+
 
     val input = readInput("Day01")
-    println(part1(input))
+    //println(part1(input))
     println(part2(input))
+
 }
